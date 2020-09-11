@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './SignIn.scss'
 
 class SignIn extends Component {
   state = {
@@ -17,7 +18,7 @@ class SignIn extends Component {
 
   render() {
     return (
-      <section>
+      <section className="container">
         <section className="form">
           <h1>FITT</h1>
 

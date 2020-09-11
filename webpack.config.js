@@ -1,9 +1,11 @@
-
 const path = require('path');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {
+  CleanWebpackPlugin
+} = require('clean-webpack-plugin');
+const isDevelopment = process.env.NODE_ENV === 'development'
 
 module.exports = {
 
@@ -52,35 +54,48 @@ module.exports = {
         loader: 'ts-loader'
       },
       {
-        test: /\.s(a|c)ss$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
+        test: /\.module\.s(a|c)ss$/,
+        loader: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
               modules: true,
-              sourceMap: '[name].css'
-            }
+              sourceMap: isDevelopment 
+            } 
           },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: '[name].css'
-            }
-          }
-        ]
+              sourceMap: isDevelopment 
+            } 
+          } 
+        ] 
       },
+      {
+        test: /\.s(a|c)ss$/,
+        exclude: /\.module.(s(a|c)ss)$/,
+        loader: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: isDevelopment 
+            } 
+          } 
+        ] 
+      }
     ]
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ template: path.resolve(__dirname, './', 'public', 'index.html') }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, './', 'public', 'index.html')
+    }),
     new MiniCssExtractPlugin({
-      filename: 'styles/[name].css', // for production use [name].[hash].css cache (added efficiency)
-      chunkFilename: 'styles/[id].css' // for production use [id].[hash].css
+      filename: isDevelopment ? '[name].css' : '[name].[hash].css', // for production use [name].[hash].css cache (added efficiency)
+      chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css' // for production use [id].[hash].css
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
