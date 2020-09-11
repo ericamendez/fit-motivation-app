@@ -24,15 +24,6 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.(js|jsx)$/,
-      //   exclude: /node_modules/,
-      //   loader: 'eslint-loader',
-      //   options: {
-      //     eslintPath: path.join(__dirname, './', '.eslintrc.json')
-      //   }
-      // },
       {
         enforce: 'pre',
         test: /\.js$/,
