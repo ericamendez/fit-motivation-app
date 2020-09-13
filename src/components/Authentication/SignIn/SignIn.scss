@@ -1,4 +1,11 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  text-align: center;
+
+}
+
+label {
+  margin: 20px 0;
+  display: block;
 }
