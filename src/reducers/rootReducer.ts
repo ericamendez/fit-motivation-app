@@ -1,1 +1,1 @@
-// combined reducer
+export const rootReducer = {}
