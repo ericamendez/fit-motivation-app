@@ -20,7 +20,7 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss', '.sass']
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss', '.sass', '.css']
   },
   module: {
     rules: [
@@ -43,6 +43,10 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'ts-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.module\.s(a|c)ss$/,
